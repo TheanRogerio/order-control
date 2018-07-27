@@ -1,12 +1,14 @@
-<h1>Orders</h1>
+<h1>Pedidos</h1>
 
 <table class="table">
 	<thead>
 		<tr>
 			<th>Total</th>
 			<th>Status</th>
-			<th>Created at</th>
-			<th>Updated at</th>
+			<th>Criado em</th>
+			<th>Atualizado em</th>
+			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -16,6 +18,9 @@
 				<td><%= order.status %></td>
 				<td><%= order.created_at %></td>
 				<td><%= order.updated_at %></td>
+				<td>
+					<%= link_to 'Editar', edit_order_path(order), class: 'btn btn-primary' %>
+				</td>
 			</tr>
 		<% end %>
 	</tbody>

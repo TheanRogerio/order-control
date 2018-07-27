@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-	before_action :set_order, only: [:edit, :update, :destroy]
+	before_action :set_order, only: [:edit, :update, :destroy, :show]
 
 	def index
 		@orders = Order.all
@@ -13,6 +13,9 @@ class OrdersController < ApplicationController
 		@order = Order.new(order_params)
 		
 		redirect_to orders_path, notice: 'Pedido criado com sucesso.' if @order.save
+	end
+
+	def show
 	end
 
 	def edit

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-	before_action :set_order, only: [:edit, :update]
+	before_action :set_order, only: [:edit, :update, :destroy]
 
 	def index
 		@orders = Order.all
@@ -24,12 +24,17 @@ class OrdersController < ApplicationController
 		end
 	end
 
+	def destroy
+		@order.destroy
+		redirect_to orders_path, notice: 'Pedido excluído com sucesso.'
+	end
+
 	private
 		def set_order
 			@order = Order.find(params[:id])
 		end
 
 		def order_params
-			params.require(:order).permit(:total, :status, )
+			params.require(:order).permit(:total, :status)
 		end
 end

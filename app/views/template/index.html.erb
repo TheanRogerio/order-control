@@ -1,0 +1,41 @@
+<% if notice %>
+	<p class="alert alert-success" id="notice"><%= notice %></p>
+<% end %>
+
+<h1><%= @title.pluralize.capitalize %></h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<% @columns.each do |column| %>
+				<th><%= column %></th>
+			<% end %>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @items.each do |item| %>
+			<tr>
+				<% @column_titles.each do |titles| %>
+					<th><%= eval("item.#{titles}") %></th>
+				<% end %>
+				<td>
+					<%= link_to 'Mostrar', "#{params[:controller]}/#{item.id}", class: 'btn btn-secondary' %>
+				</td>
+				<td>
+					<%= link_to 'Editar', "#{params[:controller]}/#{item.id}/edit",
+					class: 'btn btn-primary' %>
+				</td>
+				<td>
+					<%= link_to 'Excluir', item, method: :delete, data: {confirm: 'Deseja excluir este pedido?'}, class: 'btn btn-danger' %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<%= link_to 'Novo pedido', "#{params[:controller]}/new", class: 'btn btn-info' %>
+

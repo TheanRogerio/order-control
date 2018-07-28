@@ -1,15 +1,17 @@
 class OrderItemsController < ApplicationController
-  before_action :set_item, only: [:edit, :update, :destroy, :show]
-  before_action :set_params
+  before_action :set_item, only: [:edit, :update, :destroy]
+  before_action :set_params, exception: [:edit]
   before_action :set_order, only: [:index, :new, :create, :edit, :update,
                 :destroy]
 
   def index
     @items = OrderItem.where(order_id: @order.id)
   end
-
+  
   def new
     @item = OrderItem.new
+    @title = 'item'
+    render 'template/new'
   end
   
   def create
@@ -22,6 +24,8 @@ class OrderItemsController < ApplicationController
   end
 
   def edit
+    @title = 'item do pedido'
+    render 'template/edit'
   end
   
   def update
@@ -42,7 +46,7 @@ class OrderItemsController < ApplicationController
                 "Atualizado em"]
     @column_titles = ["id", "description", "quantity", "price", "order_id",
                       "created_at", "updated_at"]
-    @title = 'Itens do pedido'
+    @title = 'itens do pedido'
   end
 
   def set_item

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-	before_action :set_item, only: [:edit, :update, :destroy, :show]
+	before_action :set_item, only: [:edit, :update, :destroy]
 	before_action :set_params
 
 	def index
@@ -7,7 +7,6 @@ class OrdersController < ApplicationController
 						.select('orders.*, SUM(order_items.price * order_items.quantity) 
 						AS total').group('orders.id')
 		# @total = OrderItems.where(OrderItem.order_id = @items.id)
-		render 'template/index'
 	end
 
 	def new
@@ -19,10 +18,6 @@ class OrdersController < ApplicationController
 		@item = Order.new(item_params)
 		
 		redirect_to orders_path, notice: 'Pedido criado com sucesso.' if @item.save
-	end
-
-	def show
-		render 'template/show'
 	end
 
 	def edit

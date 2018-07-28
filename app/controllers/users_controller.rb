@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-	before_action :set_item, only: [:edit, :update, :destroy, :show]
+	before_action :set_item, only: [:edit, :update, :destroy]
 	before_action :set_params
 
 	def index
 		@items = User.select(:id, :name, :email, :created_at, :updated_at)
+		render 'template/index'
 	end
 
 	def new
@@ -15,10 +16,6 @@ class UsersController < ApplicationController
 		@item = User.new(item_params)
 		
 		redirect_to users_path, notice: 'Usuário criado com sucesso.' if @item.save
-	end
-
-	def show
-		render 'template/show'
 	end
 
 	def edit

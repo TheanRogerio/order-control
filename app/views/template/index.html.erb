@@ -23,17 +23,12 @@
 					<td><%= eval("item.#{titles}") %></td>
 				<% end %>
 				<td>
-					<%= link_to 'Itens do pedido', 
-											"#{params[:controller]}/#{item.id}/order_items",
-											class: 'btn btn-secondary' %>
-				</td>
-				<td>
 					<%= link_to 'Editar', "#{params[:controller]}/#{item.id}/edit",
 											class: 'btn btn-primary' %>
 				</td>
 				<td>
 					<%= link_to 'Excluir', item, method: :delete,
-											data: {confirm: 'Deseja excluir este pedido?'},
+											data: {confirm: "Deseja excluir este #{@title}?"},
 											class: 'btn btn-danger' %>
 				</td>
 			</tr>
@@ -41,6 +36,6 @@
 	</tbody>
 </table>
 
-<%= link_to 'Novo pedido', "/#{params[:controller]}/new",
+<%= link_to "Novo #{@title}", "/#{params[:controller]}/new",
 						class: 'btn btn-info' %>
 

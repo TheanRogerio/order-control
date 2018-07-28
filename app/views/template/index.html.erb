@@ -23,19 +23,24 @@
 					<th><%= eval("item.#{titles}") %></th>
 				<% end %>
 				<td>
-					<%= link_to 'Mostrar', "#{params[:controller]}/#{item.id}", class: 'btn btn-secondary' %>
+					<%= link_to 'Itens do pedido', 
+											"#{params[:controller]}/#{item.id}/order_items",
+											class: 'btn btn-secondary' %>
 				</td>
 				<td>
 					<%= link_to 'Editar', "#{params[:controller]}/#{item.id}/edit",
-					class: 'btn btn-primary' %>
+											class: 'btn btn-primary' %>
 				</td>
 				<td>
-					<%= link_to 'Excluir', item, method: :delete, data: {confirm: 'Deseja excluir este pedido?'}, class: 'btn btn-danger' %>
+					<%= link_to 'Excluir', item, method: :delete,
+											data: {confirm: 'Deseja excluir este pedido?'},
+											class: 'btn btn-danger' %>
 				</td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
 
-<%= link_to 'Novo pedido', "#{params[:controller]}/new", class: 'btn btn-info' %>
+<%= link_to 'Novo pedido', "#{params[:controller]}/new",
+						class: 'btn btn-info' %>
 

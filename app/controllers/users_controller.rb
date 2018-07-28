@@ -4,7 +4,6 @@ class UsersController < ApplicationController
 
 	def index
 		@items = User.select(:id, :name, :email, :created_at, :updated_at)
-		render 'template/index'
 	end
 
 	def new

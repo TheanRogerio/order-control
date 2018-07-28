@@ -3,7 +3,10 @@ class OrdersController < ApplicationController
 	before_action :set_params
 
 	def index
-		@items = Order.select(:id, :total, :status, :created_at, :updated_at)
+		@items = Order.left_outer_joins(:order_items).distinct
+						.select('orders.*, SUM(order_items.price * order_items.quantity) 
+						AS total').group('orders.id')
+		# @total = OrderItems.where(OrderItem.order_id = @items.id)
 		render 'template/index'
 	end
 
@@ -39,8 +42,8 @@ class OrdersController < ApplicationController
 
 	private
 		def set_params
-			@columns = ["ID", "Total", "Status", "Criado em", "Atualizado em"]
-			@column_titles = ["id", "total", "status", "created_at", "updated_at"]
+			@columns = ["Nº do pedido", "Status", "Valor total", "Usuário"]
+			@column_titles = ["id", "status", "total", "user_id"]
 			@title = 'pedido'
 		end
 
@@ -49,6 +52,6 @@ class OrdersController < ApplicationController
 		end
 
 		def item_params
-			params.require(:order).permit(:total, :status)
+			params.require(:order).permit(:status, :user_id)
 		end
 end

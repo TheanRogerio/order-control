@@ -20,7 +20,7 @@
 		<% @items.each do |item| %>
 			<tr>
 				<% @column_titles.each do |titles| %>
-					<th><%= eval("item.#{titles}") %></th>
+					<td><%= eval("item.#{titles}") %></td>
 				<% end %>
 				<td>
 					<%= link_to 'Itens do pedido', 
@@ -41,6 +41,6 @@
 	</tbody>
 </table>
 
-<%= link_to 'Novo pedido', "#{params[:controller]}/new",
+<%= link_to 'Novo pedido', "/#{params[:controller]}/new",
 						class: 'btn btn-info' %>
 

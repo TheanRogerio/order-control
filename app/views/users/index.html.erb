@@ -19,7 +19,7 @@
 		<% @items.each do |item| %>
 			<tr>
 				<% @column_titles.each do |titles| %>
-					<th><%= eval("item.#{titles}") %></th>
+					<td><%= eval("item.#{titles}") %></td>
 				<% end %>
 				<td>
 					<%= link_to 'Editar', "#{params[:controller]}/#{item.id}/edit",

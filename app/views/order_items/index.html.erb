@@ -19,7 +19,7 @@
 		<% @items.each do |item| %>
 			<tr>
 				<% @column_titles.each do |titles| %>
-					<td><%= eval("item.#{titles}") %></td>
+					<td><%= item.send(titles) %></td>
 				<% end %>
 				<td>
 					<%= link_to 'Editar', edit_order_order_item_path(@order, item),

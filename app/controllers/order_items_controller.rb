@@ -1,19 +1,14 @@
-class OrderItemsController < ApplicationController
-  before_action :set_item, only: [:edit, :update, :destroy]
-  before_action :set_params, exception: [:edit]
-  before_action :set_order, only: [:index, :new, :create, :edit, :update,
-                :destroy]
+class OrderItemsController < TemplatesController
+  # before_action :set_item, only: [:edit, :update, :destroy]
+  # before_action :set_params, exception: [:edit]
+  # before_action :set_order, only: [:index, :new, :create, :edit, :update,
+                # :destroy]
+  before_action :order, only: [:new, :create, :edit]  
 
   def index
-    @items = OrderItem.where(order_id: @order.id)
+    @items = OrderItem.where(order_id: order.id)
   end
-  
-  def new
-    @item = OrderItem.new
-    @title = 'item'
-    render 'template/new'
-  end
-  
+
   def create
     @item = OrderItem.new(item_params)
 
@@ -23,42 +18,42 @@ class OrderItemsController < ApplicationController
     end
   end
 
-  def edit
-    @title = 'item do pedido'
-    render 'template/edit'
-  end
-  
   def update
-    if @item.update(item_params)
-      redirect_to order_order_items_path(@order, @item),
+    if item.update(item_params)
+      redirect_to order_order_items_path(order, @item),
                   notice: 'Pedido atualizado com sucesso.'
 		end
   end
 
   def destroy
-		@item.destroy
+		item.destroy
 		redirect_to order_order_items_path, notice: 'Item excluído com sucesso.'
 	end
-
+  
   private
-  def set_params
+  
+  def model; @model = 'OrderItem'; end
+  def title; @title = 'itens do pedido'; end
+  
+  def columns
     @columns = ["ID", "Descrição", "Qtd", "Preço", "Pedido", "Criado em",
                 "Atualizado em"]
+  end
+	
+  def column_titles
     @column_titles = ["id", "description", "quantity", "price", "order_id",
                       "created_at", "updated_at"]
-    @title = 'itens do pedido'
   end
 
-  def set_item
-    @item = OrderItem.find(params[:id])
-  end
+  def permited_fields
+		[:description, :quantity, :price, :order_id]
+	end
 
-  def set_order
+  def order
     @order = Order.find(params[:order_id])
   end
 
   def item_params
-    params.require(:order_item)
-          .permit(:description, :quantity, :price, :order_id)
+    params.require(:order_item).permit(permited_fields)
   end
 end
